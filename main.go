@@ -33,8 +33,10 @@ func main() {
 
 				if e.ChildAttr("a", "href") != "" {
 					u, _ := url.Parse(e.ChildAttr("a", "href"))
-					fund_id, _ := url.ParseQuery(u.RawQuery)
-					td = append(td, fund_id["fund_id"][0])
+					query, _ := url.ParseQuery(u.RawQuery)
+					bank_id := query["bank_id"][0]
+					fmt.Println(bank_id)
+					td = append(td, query["fund_id"][0])
 				}
 				td = append(td, e.Text)
 			})
@@ -42,6 +44,7 @@ func main() {
 				td[2] = td[2][:8]
 			}
 			fid, _ := strconv.Atoi(td[0])
+			fmt.Println(td)
 
 			f := Fund{name: td[1], fund_id: fid}
 			funds = append(funds, f)
